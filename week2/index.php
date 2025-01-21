@@ -61,7 +61,7 @@
     <br>
     <a href ="mailto:"<?php echo $person['email'] ?>>Email me here! </a>
     <br>
-    <a href ="mailto:"<?php echo $person['web'] ?>>Google! </a>
+    <a href =<?php echo $person['web'] ?>>Google! </a>
    
   </body>
 </html>
