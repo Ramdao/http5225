@@ -6,10 +6,17 @@
     <title>Week 2</title>
 </head>
 <body>
-<h1> Hello Everyone! </h1>
 
+<script>
+    document.write("Hellow world in Javascript!")
+    </script>
 <?php
+  
+echo 'Hello world to PHP!';
 
+?>
+<?php
+ echo 'Welcome to Gary\'s World';
 ?>
 </body>
 </html>
