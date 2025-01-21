@@ -33,12 +33,35 @@
     echo '<img src="https://google.com/image">';
     ?>
     <img src ="<?php echo 'https://google.com/image' ?>" alt="<?php echo 'ALT TAG'?>">
+    <br><br><br>
 
     <?php
     $name = "Tashrif Radin";
     $lastName = 'Ali';
 
     echo 'Hello,' . $name . ' '. $lastName;
+    
+   
+
+
+
     ?>
+
+    <br>
+    <?php 
+    //$person = array('','','');
+
+    $person['first'] = 'Gary';
+    $person['last'] = 'Bhanot';
+    $person['email'] = 'info@pixelr.io';
+    $person['web']='https://google.com';
+
+    echo 'Hello, '. $person['first'];
+    ?>
+    <br>
+    <a href ="mailto:"<?php echo $person['email'] ?>>Email me here! </a>
+    <br>
+    <a href ="mailto:"<?php echo $person['web'] ?>>Google! </a>
+   
   </body>
 </html>
