@@ -117,7 +117,7 @@
             echo ' FizzBuzz';
            } else if ($rand % 3 == 0){
             echo " Fizz";
-           } else if ($rand % 5== 0) {
+           } else if ($rand % 5 == 0) {
             echo ' Buzz';
            }
           
