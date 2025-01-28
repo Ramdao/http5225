@@ -73,11 +73,56 @@
           echo '<a href= "'. $linkURL . '">'. $linkName . '</a>';
           echo '<img src="'. $linkImage .'"/>';
         }
+
+        
         
         
 
 
         ?>
 
+        <hr>
+        <h1> Challange 1 </h1>
+
+        <?php 
+        
+        $hour = ceil(rand(1,24));
+        echo $hour;
+
+        if ($hour > 5 && $hour < 9 ){
+          echo '<p> Breakfast: "Bananas, Apples, and Oats" </p>';
+        } else if ($hour > 12 && $hour <14){
+          echo '<p> Lunch: "Fish, Chicken, and Vegetables" </p>';
+        } else if ($hour> 19 && $hour<21){
+          echo '<p> Dinner: "Steak, Carrots, and Broccoli" </p>';
+        } else {
+          echo '<p> Not fed </p>';
+
+        }
+
+        
+
+        
+        
+        ?>
+
+        <h1> Challange 2 </h1>
+
+        <?php
+
+           $rand = ceil(rand(1,100));
+           echo $rand;
+
+           if ($rand % 3 == 0 && $rand % 5 == 0){
+            echo ' FizzBuzz';
+           } else if ($rand % 3 == 0){
+            echo " Fizz";
+           } else if ($rand % 5== 0) {
+            echo ' Buzz';
+           }
+          
+
+        ?>
+      
     </body>
 </html>
