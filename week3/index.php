@@ -62,6 +62,7 @@
         
         if($linkName === ""){
           echo '<h2>'.$linkURL.'</h2>';
+          echo '<a href= "'. $linkURL . '">'. $linkURL . '</a>';
           echo '<img src="'. $linkImage .'"/>';
         } else if($linkImage === ""){
           echo '<h2>'.$linkURL.'</h2>';
