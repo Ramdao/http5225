@@ -9,23 +9,24 @@
     <?php 
 
         // Connection string
-        $connect = mysqli_connect('localhost','root','','colors');
+        $connect = mysqli_connect('localhost', 'root', '', 'colors');
 
-        if (!$connect)
-        {
-            die("Connection Failed:" . mysqli_connect_error());
+        if (!$connect) {
+            die("Connection Failed: " . mysqli_connect_error());
+        }
+        
+        $query = "SELECT `Name`, `Hex` FROM colors"; // Assuming 'Hex' is the column storing the hex color codes
+        $result = mysqli_query($connect, $query);
+        
+        while ($row = mysqli_fetch_assoc($result)) {
+            $colorName = $row['Name'];
+            $hexColor = $row['Hex'];
+        
+            echo '<div style="height: 100px; width: 100%; background-color:' . htmlspecialchars($hexColor, ENT_QUOTES) . '; display: flex; justify-content: center; align-items: center; color: white; font-size: 20px; font-weight: bold;">' . htmlspecialchars($colorName, ENT_QUOTES) . '</div>';
         }
 
-        $query = "SELECT * FROM colors";
-        $colors = mysqli_query($connect, $query);
-
-        echo '<pre>'. print_r($colors) .' </pre>';
-
-        $query = "SELECT `Name` FROM colors";
-        $try = mysqli_query($connect, $query);
-
-        echo $try;
-
     ?>
+    
 </body>
+     
 </html>
