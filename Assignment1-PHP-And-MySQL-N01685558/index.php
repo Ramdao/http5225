@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+<h1>Pokemon Card Collection</h1>
 <?php 
     // Connection string
     $connect = mysqli_connect('localhost', 'u674708469_ramdao', 'PokeBase1234', 'u674708469_pokemon');
