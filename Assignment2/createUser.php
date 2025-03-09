@@ -1,10 +1,8 @@
-
-<!-- for user -->
 <?php
 include('includes/database.php');
 session_start();
 
-if (isset($_POST['register'])) {
+if (isset($_POST['register'])) { // Match the name attribute of the button
     // Securely get form data
     $first = mysqli_real_escape_string($connect, $_POST['first']);
     $last = mysqli_real_escape_string($connect, $_POST['last']);
@@ -17,16 +15,12 @@ if (isset($_POST['register'])) {
     // Insert into database
     $query = "INSERT INTO users (first, last, email, password, is_admin, dateAdded) 
               VALUES ('$first', '$last', '$email', '$password', '$is_admin', '$dateadded')";
-    
-    if (mysqli_query($connect, $query)) {
-        $_SESSION['success'] = "Registration successful! You can now log in.";
-        header("Location: index.php");
-        exit();
-    } else {
-        $_SESSION['error'] = "Error: " . mysqli_error($connect);
-        header("Location: register.php");
-        exit();
-    }
+
+    // Execute the query
+    if( mysqli_query($connect, $query)){
+        header("Location: listUsers.php");
+    };
+      
 }
 ?>
 
@@ -34,15 +28,20 @@ if (isset($_POST['register'])) {
 <html lang="en">
 <head>
     <title>Register</title>
-    <a href="index.php">Back to Login</a>
+    <a href="listUsers.php">Back to User list</a>
 </head>
 <body>
     <?php if (isset($_SESSION['error'])) { ?>
         <script>alert("<?php echo $_SESSION['error']; ?>");</script>
         <?php unset($_SESSION['error']); ?>
     <?php } ?>
-    
-    <form method="POST" action="register.php">
+
+    <?php if (isset($_SESSION['success'])) { ?>
+        <script>alert("<?php echo $_SESSION['success']; ?>");</script>
+        <?php unset($_SESSION['success']); ?>
+    <?php } ?>
+
+    <form method="POST" action="createUser.php">
         <label>First Name:</label>
         <input type="text" name="first" required>
 
@@ -59,7 +58,7 @@ if (isset($_POST['register'])) {
         <input type="hidden" name="is_admin" value="No">
         <input type="hidden" name="dateAdded" value="<?php echo date('Y-m-d H:i:s'); ?>">
 
-        <button type="submit" name="register">Register</button>
+        <button type="submit" name="register">Create</button>
     </form>
 </body>
 </html>

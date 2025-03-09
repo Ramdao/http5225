@@ -1,3 +1,5 @@
+
+<!-- for admin update park data -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +47,7 @@
 
         if (mysqli_query($connect, $update_query)) {
             echo "<p style='color: green;'>Record updated successfully.</p>";
-            echo "<a href='index.php'>Back to Home</a>";
+            echo "<a href='list.php'>Back to Home</a>";
             exit();
         } else {
             echo "<p style='color: red;'>Error updating record: " . mysqli_error($connect) . "</p>";

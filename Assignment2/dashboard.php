@@ -1,3 +1,13 @@
+<!-- for user -->
+
+<?php 
+   session_start();
+   if (!isset($_SESSION['id'])) {
+       header("Location: index.php"); // Redirect to login if not logged in
+       exit();
+   }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +17,12 @@
 </head>
 <body>
     <h2>Ecological Data</h2>
+    <p>Welcome, <?php echo $_SESSION['email'].', '. $_SESSION['first'].' '. $_SESSION['last']; ?>!</p>
+    <a href="infoUpdate.php">Update your account</a> 
+    <a href="logout.php">Logout</a> 
+    
     <?php 
+ 
     // Connection string
     $connect = mysqli_connect('localhost', 'root', '', 'parks');
 
@@ -35,7 +50,6 @@
                 <th>Ecosystem Type</th>
                 <th>Ecological Integrity Status</th>
                 <th>Ecological Integrity Trend</th>
-                <th>Action</th>
             </tr>";
 
         while ($row = mysqli_fetch_assoc($result)) {

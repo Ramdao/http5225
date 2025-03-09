@@ -1,3 +1,15 @@
+
+<!-- for admin -->
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: index.php"); // Redirect to login if not logged in
+    exit();
+}
+
+include('includes/database.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +19,12 @@
 </head>
 <body>
     <h2>Ecological Data</h2>
+    <p>Welcome, <?php echo $_SESSION['email']; ?>!</p>
     <a href="add.php">Add New Record</a>
+    <a href="listUsers.php">Users table</a>
+    <a href="logout.php">Logout</a> 
+
     <?php 
-    // Connection string
-    $connect = mysqli_connect('localhost', 'root', '', 'parks');
-
-    if (!$connect) {
-        die("Connection Failed: " . mysqli_connect_error());
-    }
-
     // Handle delete request
     if (isset($_GET['delete_id'])) {
         $delete_id = intval($_GET['delete_id']);
@@ -61,8 +70,5 @@
 
     mysqli_close($connect);
     ?>
-
-    <br>
-    
 </body>
 </html>

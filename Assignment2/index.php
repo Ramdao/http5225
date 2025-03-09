@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <?php 
+    session_start();
+    // Display alert if there is an error in the session
+    if (isset($_SESSION['error'])) {
+        echo "<script>alert('" . $_SESSION['error'] . "');</script>";
+        unset($_SESSION['error']); // Clear the error message after displaying
+    }
+    ?>
 </head>
 <body>
+
 <a href="register.php">Add New User</a>
+
 <?php 
-session_start();
 include('includes/database.php');
 
 if (isset($_POST['email'])) {
@@ -26,6 +35,8 @@ if (isset($_POST['email'])) {
         $_SESSION['id'] = $record['id'];
         $_SESSION['email'] = $record['email'];
         $_SESSION['is_admin'] = $record['is_admin']; // Assuming 'is_admin' column exists
+        $_SESSION['first'] = $record['first'];
+        $_SESSION['last'] = $record['last'];
 
         // Redirect based on admin status
         if ($record['is_admin'] === 'Yes') {
@@ -43,25 +54,20 @@ if (isset($_POST['email'])) {
 ?>
 
 <div style="max-width: 400px; margin:auto">
-
   <form method="post">
-
     <label for="email">Email:</label>
-    <input type="text" name="email" id="email">
+    <input type="text" name="email" id="email" required>
 
     <br>
 
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" required>
 
     <br>
 
     <input type="submit" value="Login">
-
   </form>
-  
 </div>
 
-    
 </body>
 </html>
