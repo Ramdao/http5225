@@ -60,7 +60,7 @@
                     <td>{$row['Ecosystem type']}</td>
                     <td>{$row['Ecological integrity status']}</td>
                     <td>{$row['Ecological integrity trend']}</td>
-                    <td>
+                  
                     </td>
                 </tr>";
         }
