@@ -1,6 +1,28 @@
 <?php
-  include('reusables/connection.php');
+  include('reusable/conn.php');
   include('functions.php');
+
+  if(isset($_POST['login'])){
+    $query = 'SELECT * 
+              FROM users
+              WHERE email = "' . $_POST['email'] . '"
+              AND password = "' . md5($_POST['password']) . '"
+              LIMIT 1';
+    $result = mysqli_query($connect, $query);
+    if(mysqli_num_rows($result)){
+      $record = mysqli_fetch_assoc($result);
+      $_SESSION['id'] = $record['id'];
+      $_SESSION['name'] = $record['name'];
+      $_SESSION['email'] = $record['email'];
+      header('Location: index.php');
+      die();
+    } else{
+      set_message('No records found!', 'danger');
+      header('Location: login.php');
+      die();
+    }
+  }
+
 ?>
 
 
@@ -24,12 +46,12 @@
       </div>
       <div class="row">
         <div class="col">
-          
+          <?php get_message(); ?>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 offset-md-4 mt-5">
-          <form method="" action="">
+          <form method="POST" action="login.php">
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
               <input type="email" class="form-control" name="email" id="email">

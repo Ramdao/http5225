@@ -1,31 +1,3 @@
-<?php
-  $boardNo = $_POST['boardNo'] ;
-  include('reusables/connection.php');
-  $query = "SELECT * FROM schools WHERE `Board No` = '$boardNo'";
-  $school = mysqli_query($connect, $query);
-  $result = $school -> fetch_assoc();
-
-  if(isset($_POST['updateschool'])){
-    $boardname = $_POST['boardname'];
-    $language = $_POST['language'];
-    $schooltype = $_POST['schooltype'];
-
-    $query = "UPDATE schools 
-                SET (`Board` = $boardname,  
-                    `Language` = $language,
-                    `School Type` = $schooltype)
-              WHERE `Board No` = $boardNo";
-
-    $school = mysqli_query($connect, $query);
-    if($school){
-      echo 'School added successfully.';
-    }
-    else{
-      echo 'Unable to add the school, Error code: ' . mysqli_error();
-    }
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,46 +29,70 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h1 class="display-4 mt-5 mb-5">Update <?php echo $result['Board'] ?></h1>
+          <h1 class="display-4 mt-5 mb-5">Update</h1>
         </div>
       </div>
     </div>
   </div>
   
   <?php 
-      
+      include('reusable/con.php');
+      include('functions.php');
+      if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $query = "SELECT * FROM schools WHERE id=$id";
+        $result = mysqli_query($connect, $query);
+        $school = $result->fetch_assoc();
+      }
+
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $id = $_POST['id'];
+        $schoolName = $_POST['schoolName'];
+        $schoolLevel = $_POST['schoolLevel'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+    
+        $query = "UPDATE schools SET `school Name`='$schoolName', `school Level`='$schoolLevel', `Phone`='$phone', `Email`='$email' WHERE id=$id";
+        $result = mysqli_query($connect, $query);
+
+        if($result){
+          set_message('School was updated successfully!', 'success');
+          header("Location: index.php"); 
+        }else{
+          echo "Failed: " . mysqli_error($connect);
+        }
+    }
+
+
   ?>
 
   <div class="container-fluid">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <form action="updateschool.php" method="POST">
-            <input type="hidden" name="boardNo" value="<?php echo $_POST['boardNo']  ?>">
+          <form action="updateSchool.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $school['id'] ?>">
             <div class="mb-3">
-              <label for="boardname" class="form-label">Board Name</label>
-              <input type="text" class="form-control" name="boardname" id="boardname" aria-describedby="boardname"
-              value="<?php echo $result['Board'] ?>">
+              <label for="schoolName" class="form-label">School Name</label>
+              <input type="text" class="form-control" id="schoolName" name="schoolName" aria-describedby="school Name" value="<?php echo $school['School Name'] ?>">
             </div>
-
             <div class="mb-3">
-              <label for="language" class="form-label">Language</label>
-              <input type="text" class="form-control" name="language" id="language" aria-describedby="language"
-              value="<?php echo $result['Language'] ?>">
+              <label for="schoolLevel" class="form-label">School Level</label>
+              <input type="text" class="form-control" id="schoolLevel" name="schoolLevel"  value="<?php echo $school['School Level'] ?>">
             </div>
-
             <div class="mb-3">
-              <label for="schooltype" class="form-label">School Type</label>
-              <input type="text" class="form-control" name="schooltype" id="schooltype" aria-describedby="schooltype"
-              value="<?php echo $result['School Type'] ?>">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone"  value="<?php echo $school['Phone'] ?>">
             </div>
-            <button type="submit" class="btn btn-primary" name="updateschool">Update School</button>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email"  value="<?php echo $school['Email'] ?>">
+            </div>
+            <button type="submit" class="btn btn-primary" name="addSchool">Update School</button>
           </form>
         </div>
       </div>
     </div>
   </div>
-
-
 </body>
 </html>
