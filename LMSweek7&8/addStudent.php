@@ -66,7 +66,7 @@
   </div>
   
   <?php 
-      include('reusable/con.php');
+      include('reusable/conn.php');
       $query = 'SELECT * FROM schools';
       $schools = mysqli_query($connect, $query);
   ?>
