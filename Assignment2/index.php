@@ -1,73 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <?php 
-    session_start();
-    // Display alert if there is an error in the session
-    if (isset($_SESSION['error'])) {
-        echo "<script>alert('" . $_SESSION['error'] . "');</script>";
-        unset($_SESSION['error']); // Clear the error message after displaying
-    }
-    ?>
-</head>
-<body>
+<?php
+// index.php - Login Page
+session_start();
+if (isset($_SESSION['id'])) {
+    header("Location: " . ($_SESSION['is_admin'] === 'Yes' ? 'admin/adminDashboard.php' : 'users/manageParks.php'));
+    exit();
+}
+include('reusable/connection.php');
 
-<a href="register.php">Add New User</a>
-
-<?php 
-include('includes/database.php');
-
-if (isset($_POST['email'])) {
-    // Secure query to prevent SQL Injection
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = mysqli_real_escape_string($connect, $_POST['email']);
     $password = md5($_POST['password']);
 
-    $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
-    $result = mysqli_query($connect, $query);
+    $query = "SELECT * FROM users WHERE email = ? AND password = ? LIMIT 1";
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (mysqli_num_rows($result)) {
-        $record = mysqli_fetch_assoc($result);
-
-        // Store user details in session
+    if ($result->num_rows) {
+        $record = $result->fetch_assoc();
         $_SESSION['id'] = $record['id'];
         $_SESSION['email'] = $record['email'];
-        $_SESSION['is_admin'] = $record['is_admin']; // Assuming 'is_admin' column exists
+        $_SESSION['is_admin'] = $record['is_admin'];
         $_SESSION['first'] = $record['first'];
         $_SESSION['last'] = $record['last'];
-
-        // Redirect based on admin status
-        if ($record['is_admin'] === 'Yes') {
-            header('Location: list.php'); // Redirect to admin page
-        } else {
-            header('Location: dashboard.php'); // Redirect to user page
-        }
+        
+        header("Location: " . ($record['is_admin'] === 'Yes' ? 'admin/adminDashboard.php' : 'users/manageParks.php'));
         exit();
     } else {
         $_SESSION['error'] = "Invalid email or password!";
-        header('Location: index.php'); // Redirect back to login page
-        exit();
     }
 }
 ?>
 
-<div style="max-width: 400px; margin:auto">
-  <form method="post">
-    <label for="email">Email:</label>
-    <input type="text" name="email" id="email" required>
-
-    <br>
-
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-
-    <br>
-
-    <input type="submit" value="Login">
-  </form>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Login</title>
+        <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Login</h1>
+    <section class="login-form">
+    <?php if (isset($_SESSION['error'])) { echo "<p style='color:red'>" . $_SESSION['error'] . "</p>"; unset($_SESSION['error']); } ?>
+    <form method="POST">
+    
+        <label>Email:</label>
+        <input type="text" name="email" required>
+        <br>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <br>
+        <button type="submit">Login</button> or <a href="public/register.php">Register</a>
+    </form>
+    </section>
+    
 </body>
 </html>
