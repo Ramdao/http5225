@@ -8,8 +8,9 @@
     @endforeach
 @endif
 
-    <form action="{{ route('students.update', $student-> id) }}" method="PUT">
+    <form action="{{ route('students.update', $student-> id) }}" method="POST">
         {{ csrf_field() }}
+        @method('PUT')
         <div>
             <label for="fname">First Name:</label>
             <input type="text" name="fname" placeholder="fname" value="{{ old('fname') ?? $student -> fname }}">

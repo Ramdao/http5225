@@ -22,6 +22,12 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ old('email') }}">
         </div>
+        <select name="" id="">
+            @foreach ($courses as $course )
+                <option value="">{{ $course -> name }}</option>
+            @endforeach
+        </select>
+
         <button type="submit" value="Create">Add Student</button>
     </form>
 @endsection
