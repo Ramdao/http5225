@@ -22,9 +22,9 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ old('email') }}">
         </div>
-        <select name="" id="">
+        <select name="course" id="course">
             @foreach ($courses as $course )
-                <option value="">{{ $course -> name }}</option>
+                <option value="{{ $course -> id}}">{{ $course -> name }}</option>
             @endforeach
         </select>
 

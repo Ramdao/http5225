@@ -24,9 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create') -> with([
-            'courses' , Course::all()
-        ]);
+        return view('students.create')->with('courses', Course::all());
     }
 
     /**
@@ -34,8 +32,9 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        Student::create($request->validated());
-        return redirect()->route('students.index');
+        $student = Student::create($request->validated());
+        $student -> courses() -> attach($request -> course);
+        return redirect() -> route('students.index');
     }
 
     /**

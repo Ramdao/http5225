@@ -15,4 +15,10 @@ Route::get('/', function () {
 //     return view('students.update');
 // });
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::resource('students', StudentController::class);
+
+Route::resource('courses', CourseController::class);
