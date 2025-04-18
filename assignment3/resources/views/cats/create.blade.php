@@ -28,12 +28,14 @@
             <label for="likes" class="form-label">Likes:</label>
             <input type="text" id="likes" name="likes" value="{{ old('likes') }}" class="form-control">
         </div>
-        <select name="breed" id="breed">
+        <div class="mb-3">
+        <label for="breed" class="form-label">Breed</label>
+        <select name="breed" id="breed" class="form-control">
             @foreach ($breeds as $breed )
                 <option value="{{ $breed -> id}}">{{ $breed -> name }}</option>
             @endforeach
         </select>
-
+        </div>
         <button type="submit" class="btn btn-primary">Add Cat</button>
     </form>
 </div>

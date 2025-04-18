@@ -4,7 +4,9 @@
 <div class="min-vh-100 py-5" style="background: linear-gradient(to bottom right, #1f1f1f, #3a3a3a); color: #fff;">
     <div class="container">
         <h1 class="text-center mb-5 text-info">All Cats</h1>
-
+        <div style="padding:10px;">
+        <a href="cats/create" class="btn btn-outline-info btn-sm">Add Cat</a> 
+        </div>
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -43,3 +45,33 @@
     </div>
 </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const breedPersonalities = {
+            'Siamese': 'Vocal and social.',
+            'Maine Coon': 'Gentle and playful.',
+            'Persian': 'Laid-back and affectionate.',
+            'Bengal': 'Energetic and curious.',
+            'Ragdoll': 'Relaxed and loving.'
+        };
+
+        // For each card
+        document.querySelectorAll('.card').forEach(card => {
+            const breedBadges = card.querySelectorAll('.badge');
+            let added = false;
+
+            breedBadges.forEach(badge => {
+                const breedName = badge.textContent.trim();
+                const personality = breedPersonalities[breedName];
+
+                if (personality && !added) {
+                    const p = document.createElement('p');
+                    p.classList.add('card-text');
+                    p.innerHTML = `<strong>Personality:</strong> ${personality}`;
+                    card.querySelector('.card-body').appendChild(p);
+                    added = true; 
+                }
+            });
+        });
+    });
+</script>
