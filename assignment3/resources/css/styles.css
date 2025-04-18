@@ -1,0 +1,51 @@
+/* Import Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* === Custom Styles === */
+
+/* Dark background with gradient for the body */
+body {
+    background: linear-gradient(to bottom right, #1a202c, #2d3748);
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the card container */
+.card {
+    background: linear-gradient(to top right, #4e73df, #224abe);
+    border-radius: 1rem;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Card title styling */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #f7fafc;
+}
+
+/* Card text styling (Age and Likes) */
+.card-text {
+    font-size: 1rem;
+    color: #e2e8f0;
+}
+
+/* Optional: Adding some space to the top and bottom of the page */
+.container {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/* Optional: Customizing heading style */
+h1 {
+    color: #d53f8c;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
