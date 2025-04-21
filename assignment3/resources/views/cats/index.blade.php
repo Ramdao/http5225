@@ -18,6 +18,10 @@
                 <div class="col">
                     <div class="card text-white bg-dark h-100 shadow-lg">
                         <div class="card-body">
+                            <!-- image -->
+                            @if($cat->breeds->first() && $cat->breeds->first()->image_url)
+                                <img src="{{ $cat->breeds->first()->image_url }}" class="img-fluid rounded mb-3" alt="{{ $cat->breeds->first()->name }} image">
+                            @endif
                             <h5 class="card-title">{{ $cat->name }}</h5>
                             <p class="card-text">Age: {{ $cat->age }}</p>
                             <p class="card-text">Likes: {{ $cat->likes }}</p>
